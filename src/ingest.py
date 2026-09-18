@@ -14,7 +14,7 @@ class PDFIngestor:
         
         for page_num in range(len(doc)):
             text = doc[page_num].get_text("text")
-            if text.strip():  # Ignore empty pages
+            if text.strip(): 
                 pages_data.append({
                     "page": page_num + 1,
                     "text": text,
@@ -44,7 +44,7 @@ class PDFIngestor:
         return docs
 
 if __name__ == "__main__":
-    # Test ingestion with a sample paper
+    
     sample_pdf = "data/raw_pdfs/sample.pdf"
     if os.path.exists(sample_pdf):
         ingestor = PDFIngestor(sample_pdf)

@@ -4,13 +4,13 @@ from sentence_transformers import SentenceTransformer
 
 class VectorStoreManager:
     def __init__(self, db_path="data/chroma_db", collection_name="academic_papers"):
-        # Initialize local persistent Chroma client
+        
         self.client = PersistentClient(path=db_path)
         
-        # Load a powerful, lightweight open-source embedding model
+        
         self.embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
         
-        # Get or create collection
+        
         self.collection = self.client.get_or_create_collection(name=collection_name)
 
     def add_documents(self, chunks):
@@ -25,11 +25,11 @@ class VectorStoreManager:
             documents.append(chunk["content"])
             metadatas.append(chunk["metadata"])
             
-        # Generate vector embeddings
+        
         print("Generating embeddings...")
         embeddings = self.embedding_model.encode(documents).tolist()
 
-        # Upsert into ChromaDB
+        
         self.collection.upsert(
             ids=ids,
             embeddings=embeddings,
@@ -49,7 +49,7 @@ class VectorStoreManager:
         return results
 
 if __name__ == "__main__":
-    # Test block using PDFIngestor from src.ingest
+    
     from src.ingest import PDFIngestor
     
     sample_pdf = "data/raw_pdfs/sample.pdf"
